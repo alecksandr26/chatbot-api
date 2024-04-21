@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.contrib.auth import login, logout, authenticate
 
-from rest_framework import generics, status
+from rest_framework import generics, status, pagination
 from rest_framework.response import Response
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -14,14 +14,16 @@ from .serializers import *
 from .permissions import *
 
 
-# User Views, the user views 
+class CustomPagination(pagination.PageNumberPagination):
+    page_size = 10  # Customize the number of items per page
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]
-
-    
+    permission_classes = [AllowAny]    
 
 class RetrieveIntentView(generics.RetrieveAPIView):
     # GET
@@ -29,23 +31,6 @@ class RetrieveIntentView(generics.RetrieveAPIView):
     serializer_class = IntentSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        include_param = self.request.GET.get('include')
-        if include_param:
-            include_fields = include_param.split(',')
-            prefetch_fields = []
-            for field in include_fields:
-                if field == 'patterns':
-                    prefetch_fields.append('patterns')
-                elif field == 'answers':
-                    prefetch_fields.append('answers')
-
-            if prefetch_fields:
-                queryset = queryset.prefetch_related(*prefetch_fields)
-
-        return queryset
     
 class CreateIntentView(generics.CreateAPIView):
     # POST
@@ -67,6 +52,8 @@ class ListCreateIntentView(generics.ListCreateAPIView):
     serializer_class = IntentSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = CustomPagination
+
 
     def create(self, request, *args, **kwargs):
         intents_data = request.data
@@ -79,8 +66,18 @@ class ListCreateIntentView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
-        
+class DeleteIntentView(generics.DestroyAPIView):
+    # DELETE
+    queryset = Intent.objects.all()
+    serializers_class = IntentSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_202_ACCEPTED)
+    
 
 class RetrievePatternView(generics.RetrieveAPIView):
     # GET
@@ -109,6 +106,7 @@ class ListCreatePatternView(generics.ListCreateAPIView):
     serializer_class = PatternSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = CustomPagination
 
     def create(self, request, *args, **kwargs):
         patterns_data = request.data
@@ -121,8 +119,21 @@ class ListCreatePatternView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+class DeletePatternView(generics.DestroyAPIView):
+    # DELETE
+    queryset = Pattern.objects.all()
+    serializers_class = PatternSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_202_ACCEPTED)
 
 
+
+    
 class RetrieveAnswerView(generics.RetrieveAPIView):
     # GET
     queryset = Answer.objects.all()
@@ -150,6 +161,7 @@ class ListCreateAnswerView(generics.ListCreateAPIView):
     serializer_class = AnswerSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = CustomPagination
     
     def create(self, request, *args, **kwargs):
         answers_data = request.data
@@ -162,6 +174,16 @@ class ListCreateAnswerView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+class DeleteAnswerView(generics.DestroyAPIView):
+    # DELETE
+    queryset = Answer.objects.all()
+    serializers_class = AnswerSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_202_ACCEPTED)
 
 

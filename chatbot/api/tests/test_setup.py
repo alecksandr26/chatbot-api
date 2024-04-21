@@ -2,6 +2,7 @@ from django.test import TestCase
 from rest_framework.test import APITestCase
 from django.urls import reverse
 from api.models import *
+
 import json
 import copy
 
@@ -16,17 +17,20 @@ class TestSetUp(APITestCase):
         self.register_intent_url = reverse("register_intent")
         self.list_intent_url = reverse("list_intent")
         self.retrieve_intent_1_url = reverse("retrieve_intent", args = str(1))
-        self.update_intent_url = reverse("update_intent", kwargs = {"pk" : str(1)})
+        self.update_intent_1_url = reverse("update_intent", kwargs = {"pk" : str(1)})
+        self.delete_intent_1_url = reverse("delete_intent", kwargs = {"pk" : str(1)})
         
         self.register_pattern_url = reverse("register_pattern")
         self.list_pattern_url = reverse("list_pattern")
         self.retrieve_pattern_1_url = reverse("retrieve_pattern", kwargs = {"pk" : str(1)})
         self.update_pattern_url = reverse("update_pattern", kwargs = {"pk" : str(1)})
+        self.delete_pattern_1_url = reverse("delete_pattern", kwargs = {"pk" : str(1)})
         
         self.register_answer_url = reverse("register_answer")
         self.list_answer_url = reverse("list_answer")
         self.retrieve_answer_1_url = reverse("retrieve_answer", kwargs = {"pk" : str(1)})
         self.update_answer_url = reverse("update_answer", kwargs = {"pk" : str(1)})
+        self.delete_answer_1_url = reverse("delete_answer", kwargs = {"pk" : str(1)})
         
         self.get_token_url = reverse("get_token")
         self.refresh_token_url = reverse("refresh_token")

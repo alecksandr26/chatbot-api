@@ -67,12 +67,32 @@ class TestIntentUpdate(TestSetUp):
 
     def test_update_intent_data(self):
         new_intent_data = {"tagname" : "Farewells"}
-        res = self.client.put(self.update_intent_url, new_intent_data,
+        res = self.client.put(self.update_intent_1_url, new_intent_data,
                               **{'HTTP_AUTHORIZATION': f'Bearer {self.token}'})
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.data["tagname"], "Farewells")
         
     def test_update_intent_data_no_token(self):
         new_intent_data = {"tagname" : "Farewells"}
-        res = self.client.put(self.update_intent_url, new_intent_data)
+        res = self.client.put(self.update_intent_1_url, new_intent_data)
         self.assertEqual(res.status_code, 401)
+
+class TestIntentDelete(TestSetUp):
+    def setUp(self):
+        self.register_admin()
+        self.get_token_admin()
+        self.register_intent(self.intent_data)
+
+    def test_delete_intent(self):
+        res = self.client.delete(self.delete_intent_1_url,
+                                 **{'HTTP_AUTHORIZATION': f'Bearer {self.token}'})
+        self.assertEqual(res.status_code, 202)
+
+    def test_delete_intent_no_token(self):
+        res = self.client.delete(self.delete_intent_1_url)
+        self.assertEqual(res.status_code, 401)
+
+
+
+
+

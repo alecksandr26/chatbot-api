@@ -66,3 +66,21 @@ class TestAnswerUpdate(TestSetUp):
         new_answer_data = {"answer": "Hello", "intent": 1}
         res = self.client.put(self.update_answer_url, new_answer_data)
         self.assertEqual(res.status_code, 401)
+
+
+
+class TestAnswerDelete(TestSetUp):
+    def setUp(self):
+        self.register_admin()
+        self.get_token_admin()
+        self.register_intent(self.intent_data)
+        self.register_answer(self.answer_data)
+
+    def test_delete_answer(self):
+        res = self.client.delete(self.delete_answer_1_url,
+                                 **{'HTTP_AUTHORIZATION': f'Bearer {self.token}'})
+        self.assertEqual(res.status_code, 202)
+
+    def test_delete_answer_no_token(self):
+        res = self.client.delete(self.delete_answer_1_url)
+        self.assertEqual(res.status_code, 401)        

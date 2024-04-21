@@ -66,4 +66,20 @@ class TestPatternUpdate(TestSetUp):
         new_pattern_data = {"pattern" : "Hello", "intent" : 1}
         res = self.client.put(self.update_pattern_url, new_pattern_data)
         self.assertEqual(res.status_code, 401)
-    
+
+
+class TestPatternDelete(TestSetUp):
+    def setUp(self):
+        self.register_admin()
+        self.get_token_admin()
+        self.register_intent(self.intent_data)
+        self.register_pattern(self.pattern_data)
+
+    def test_delete_pattern(self):
+        res = self.client.delete(self.delete_pattern_1_url,
+                                 **{'HTTP_AUTHORIZATION': f'Bearer {self.token}'})
+        self.assertEqual(res.status_code, 202)
+
+    def test_delete_pattern_no_token(self):
+        res = self.client.delete(self.delete_pattern_1_url)
+        self.assertEqual(res.status_code, 401)        
