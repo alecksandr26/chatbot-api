@@ -1,0 +1,29 @@
+{"intents": [
+  {"tag": "greeting",
+    "patterns": ["Hola", "¿Cómo estás?", "¿Hay alguien ahí?", "Hola", "Buen día", "¿Qué tal?", "Hey", "saludos"],
+    "responses": ["¡Hola!", "¡Qué bueno verte de nuevo!", "Hola, ¿cómo puedo ayudarte?"]
+  },
+  {"tag": "goodbye",
+    "patterns": ["cya", "Hasta luego", "Adiós", "Me estoy yendo", "Que tengas un buen día", "adiós", "cao", "nos vemos"],
+    "responses": ["Triste verte ir :(", "¡Hablamos luego!", "¡Adiós!"]
+  },
+  {"tag": "programming",
+    "patterns": ["¿Qué es la programación?", "¿Qué es codificar?", "Háblame sobre la programación", "Háblame sobre codificación", "¿Qué es el desarrollo de software?"],
+    "responses": ["Programar, codificar o desarrollar software significa escribir código de computadora para automatizar tareas."]
+  },
+  {"tag": "resource",
+    "patterns": ["¿Dónde puedo aprender a programar?", "La mejor manera de aprender a programar", "¿Cómo puedo aprender a programar?", "Buenos recursos de programación", "¿Puedes recomendar buenos recursos de codificación?"],
+    "responses": ["Echa un vistazo al canal de YouTube de NeuralNine y a la serie The Python Bible (7 en 1)."]
+  },
+  {"tag": "stocks",
+    "patterns": ["¿Cuáles son mis acciones?", "¿Qué acciones poseo?", "Muestra mi cartera de acciones"],
+    "responses": ["¡Aquí están tus acciones!"]
+  },
+		{
+				"tag" : "creator",
+				"patterns" : ["quien es tu creador", "¿Quien es tu creador?", "Quien es tu creador?", "quien te creo",
+											"Quien te creo", "¿Quien te creo?"],
+				"responses" : ["Mi amo supremo alecksandr", "Mi papito alecksandr", "El guapote alecksandr"]
+		}
+]
+}

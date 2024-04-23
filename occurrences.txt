@@ -1,0 +1,33 @@
+./.git/config:7:	url = git@github.com:alecksandr26/chatbot-api.git
+./.git/FETCH_HEAD:1:0662d7d29a38074ef12a847ec8e0cb0dcf04112c		branch 'main' of github.com:alecksandr26/chatbot-api
+./.git/COMMIT_EDITMSG:8:#	modified:   chatbot/api/tests/test_answer.py
+./.git/COMMIT_EDITMSG:9:#	modified:   chatbot/api/tests/test_intent.py
+./.git/COMMIT_EDITMSG:10:#	modified:   chatbot/api/tests/test_pattern.py
+./.git/COMMIT_EDITMSG:11:#	modified:   chatbot/api/tests/test_setup.py
+./.git/COMMIT_EDITMSG:12:#	modified:   chatbot/api/urls.py
+./.git/COMMIT_EDITMSG:13:#	modified:   chatbot/api/views.py
+./chatbot/manage.py:9:    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chatbot.settings')
+./chatbot/api/views.py:31:class ChatBotRespondPattern(views.APIView):
+./chatbot/api/urls.py:10:    # Chatbot response, requires Auth from users
+./chatbot/api/urls.py:11:    path("chatbot/pattern-response/", views.ChatBotRespondPattern.as_view(), name = "chatbot_respond_pattern"),
+./chatbot/chatbot/settings.py:2:Django settings for chatbot project.
+./chatbot/chatbot/settings.py:55:ROOT_URLCONF = 'chatbot.urls'
+./chatbot/chatbot/settings.py:73:WSGI_APPLICATION = 'chatbot.wsgi.application'
+./chatbot/chatbot/wsgi.py:2:WSGI config for chatbot project.
+./chatbot/chatbot/wsgi.py:14:os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chatbot.settings')
+./chatbot/chatbot/urls.py:2:URL configuration for chatbot project.
+./chatbot/chatbot/asgi.py:2:ASGI config for chatbot project.
+./chatbot/chatbot/asgi.py:14:os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'chatbot.settings')
+./README.md:1:# chatbot-api
+./README.md:2:A straightforward RESTful API for a chatbot using Django.
+./.gitignore:2:chatbot/*/migrations/*
+./env/bin/django-admin:1:#!/home/aleck/Documents/projects/chatbot/env/bin/python
+./env/bin/pip3:1:#!/home/aleck/Documents/projects/chatbot/env/bin/python
+./env/bin/pip:1:#!/home/aleck/Documents/projects/chatbot/env/bin/python
+./env/bin/pip3.11:1:#!/home/aleck/Documents/projects/chatbot/env/bin/python
+./env/bin/activate.fish:36:set -gx VIRTUAL_ENV "/home/aleck/Documents/projects/chatbot/env"
+./env/bin/activate:38:VIRTUAL_ENV="/home/aleck/Documents/projects/chatbot/env"
+./env/bin/sqlformat:1:#!/home/aleck/Documents/projects/chatbot/env/bin/python
+./env/bin/activate.csh:11:setenv VIRTUAL_ENV "/home/aleck/Documents/projects/chatbot/env"
+./env/lib/python3.11/site-packages/asgiref-3.8.1.dist-info/METADATA:105:An example of such a server would be a chatbot server that connects out to
+./env/pyvenv.cfg:5:command = /usr/bin/python -m venv /home/aleck/Documents/projects/chatbot/env

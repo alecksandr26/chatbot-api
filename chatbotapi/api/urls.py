@@ -7,6 +7,10 @@ urlpatterns = [
     path("token/", views.TokenObtainPairView.as_view(), name = "get_token"),
     path("token/refresh/", views.TokenRefreshView.as_view(), name = "refresh_token"),
 
+    # Chatbot response, requires Auth from users
+    path("chatbot/pattern-response/", views.ChatBotRespondPattern.as_view(), name = "chatbot_respond_pattern"),
+
+    # Admin interations
     path("intents/<int:pk>/", views.RetrieveIntentView.as_view(), name = "retrieve_intent"),
     path("intents/<int:pk>/update/", views.UpdateIntentView.as_view(), name = "update_intent"),
     path("intents/<int:pk>/delete/", views.DeleteIntentView.as_view(), name = "delete_intent"),

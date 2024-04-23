@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.contrib.auth import login, logout, authenticate
 
-from rest_framework import generics, status, pagination
+from rest_framework import generics, status, pagination, views
 from rest_framework.response import Response
 
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -18,12 +18,39 @@ class CustomPagination(pagination.PageNumberPagination):
     page_size = 10  # Customize the number of items per page
     page_size_query_param = 'page_size'
     max_page_size = 100
-
+    
+# User views
 
 class CreateUserView(generics.CreateAPIView):
+    # POST
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]    
+    permission_classes = [AllowAny]
+
+    
+class ChatBotRespondPattern(views.APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    # POST
+    def post(self, request):
+        if "pattern" not in request.data:
+            return Response(status = status.HTTP_400_BAD_REQUEST, data = {
+                "detail" : "JSON parse error - Expecting property pattern"
+            })
+
+        pattern = request.data["pattern"]
+
+        # Proccess pattern to NN
+        print(pattern)
+
+        
+        return Response(status = status.HTTP_200_OK, data = {
+            "answer" : "Nothing yet!!!"
+        })
+    
+
+# Admin Views 
 
 class RetrieveIntentView(generics.RetrieveAPIView):
     # GET
@@ -77,7 +104,7 @@ class DeleteIntentView(generics.DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_202_ACCEPTED)
-    
+
 
 class RetrievePatternView(generics.RetrieveAPIView):
     # GET
